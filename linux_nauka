@@ -1,0 +1,143 @@
+linux nauka 1
+system linux jest podzielone na trzy glowne czesci
+hardware - fizyczne czesci procesora jak np cpu,ram,dyski
+linux kernel - jako rdzen systemu operacyjnego daje komunikacje pomiedzy software a hardware
+user space - srodowisko gdzie uzytkownik ma interaktywnosc z systemem
+
+coamnd line
+    linux shell to program ktory akceptuje twoje wpoisane komendy i wysyla je do systemu do wykonania
+
+    bash - (bourne again shell) bash is thew deafult shell program for linux
+    the shell prompt username@hostname:current_directory$
+    symbol $ infurmuje ze shell jest gotowy zaakceptowac komendy od uzytkownika
+    
+    echo - wyswietla text ktory podamy jako argument spowrotem do terminala
+    echo hallo world
+
+    wszystkie koncepty w linuksie sa brane jako pliki i sa ulozone w hierarchinczyej strukturze znanej jako filesystem(system plikow)
+    wszystko zaczyna sie od roota
+    lokacja jakiego kolwiek plilu zaczyna sie od specjalnej drogi np /home/documents/dukument.JPG
+
+    pwd - (print working directory) ta komenda wyswetla dana droge do katalogu w ktorym aktualnie sie znajdujesz
+
+    cd - (change directory) ta komenda pozwala przemieszczac sie po systemie linux
+    cd /home/nazwa/documents to jest absolutna sciezka (pelna sciezka do miejsa gdzie chcemy sie przeniesc)
+    cd Hawaii to wzgledna sciezka pozwala sie przemieszczac do katalagow tylko tam gdzie jestesmy
+        cd . - reprezentuje katalog w ktorym aktualnie jestesmy
+        cd .. - przenosi o jedno miejsce wyzej  w katalogu np z /home/nazwa/dokument na /home/nazwa
+        cd ~ - przenosi do home directory
+        cd - - cofa do poprzedniego katalogu w ktorym byles
+
+    ls ( list directories)
+    samo ls wyswietli pliki w altualnym katalogu
+    ls /home/pete
+    ls z ciezka wyswietli pliki w danej sciezce
+    ls -a
+    wyswietli ukryte pliki
+    ls -l
+    pokaze dluga wersje listy plikow (permisje plikow, liczbe linkow , imie wlascicieal ,wlasciciela grupy,czas ostatniej modyfikacji,i nazwe pliku)
+    ls -r
+    sortuje wyniki w odwroconej kolejnosci alfabetycznej
+    ls -la
+    mozna laczyc komendy zeby miec dokladniejsze wyniki
+
+    touch tworzy pliki i zmienia czas edycju plikow
+    touch plik - tworzy plik
+    touch plik1 plik2 plik3 - tworzy 3 pliki
+    touch plik_ktory_isnieje - zmienia czas zmiany pliku
+    touch -r file1 file2 - ustawia czas edycja pliku2 na czas pliku 1
+    touch -d "2023-01-01 12:30:00" mysuperduperfile - ustawia date i czas zmiany na specyficzny ktory stworzylismy
+
+    file - daje opis pliku co sie w nim znajduje np ascii zdjecie czy text
+    file banana.jpg
+
+    cat -(concatenate)laczyc
+    cat myfile.txt -wyswietla zawartosc pliku w terminalu
+    cat plik1 plik2 -laczy te dwa pliki i wystwietla najperw zawartosc 1 i odrazu nastepnego
+    cat > plik3 - pozwala utworzyc plik do ktorego wpisujemy zawartosc z terminala a klikajac ctrl-d konczymy
+    can -n plik1 - wyswietlna text i liczbe lini
+    can -b plik1 - wyswietla text i liczbe nie pustych lini tekstu
+
+    less to komencda ktora dziala jak ksiazkowe wyswietlnanie zawartosci pliku
+    less plik1
+    nawigacja i kontrolki
+    gora -dol - skakanie pomiedzy stronami
+    g -idziesz na poczatek pliku
+    G - idziesz na koniec pliku
+    h - wyswietla poradnik
+    unix less search
+    jak chcesz znalesc cos specjalnego uzyj
+    /szulany_tekst - szukasz do przodu
+    ?szukany_tekst - szukasz do tylu
+    n -skaczesz do nastepnego
+    N - skaczesz do poprzedniego
+    q - wychodzisz z less
+
+    history - wyswietlna wszystkie komendy jakich uzywales
+    szczalka w gore idze po kolei komendami jakie miales
+    !! odrazu uzywaja ostatniej  komendy
+    ctrl - r wlacza wyszukiwanie ostatnich komend
+    history -c linux - usuwa historie komend
+    history -w linux - zapisuje historie komend do pliku
+    history -f <offset> usuwa komende ktorej podasz kod np history -d 101
+
+    clear czysci okno terminala jak i ctrl -l
+
+    cp - kopiowanie plikow i katalogow
+    cp plik /home/pete/Muzyka kopiuje plik do katalogu muzyka
+    cp plik /home/pete/Muzyka/nowa_nazwa - mozna danemu plikowi dac nowa nazwe
+        mozna dawac dodatki np
+        * pasuje do dowolnej sekwencji znakow
+        cp *.jpg /home/pete/Pictures kopiuje wszystkie pliki jpg
+        ? pausje do dowolnego pojedynczego znaku
+        [] Pasuje do dowolnego znaku zawartego w nawiasach.
+    cp -r kopiuje katalog i wszystji co w nim jest
+    cp -i pyta sie czy na pewno nad pisac plik jesli ma ta sama nazwe
+    cp -f wymusza nadpis na pliku
+    cp -p robi pelna kopie pliku
+
+    mv(move) przenies
+    dzieki mv mozna zmienic nazwe pliku lub katalogu
+    mv plik1 plik_1
+    mv plik1 /home/pete/documents przenoszenie pliku do dokumentow
+    mv plik1 plik2 /home.... przenoszenie 2 plikow do dokumentu
+    mv -t /home/pete/documents plik1 plik2 przenoszenie plikow tylko najpierw mozna bylo zapisac sciezke
+        -i - daje zapytanie o nadpisanie zeby nie nadpisac niepotrzebnie pliku
+        -b jesli chcesz nadpisac to ta opcja robi backup starego pliku
+        -v  pokazuje co dokladnie zrobila komenda
+
+    mkdir make directory
+    mkdir documents - tworzy katalog dokumenty
+    mkdir books paintings - tworzy dwa osobne katalogi
+    mkdir -p books/hemingway/favorites -tworzy katalog w katalogu w katalogu
+
+    rm remove usuwa pliki
+    rm file1 - usuwa plik
+    rm -f - usuwa pliki bez pytania
+    rm -i - wysyla zapytanie czy na pewno usunac plik
+    rm -r - pozwala usunac katalog i cala jego zawartosc
+    rmdir - pozwala usunac pusty katalog
+
+    find szuka pliku
+    find /home -name pliki.txt szuka pliku o nzawie pliki.txt w katalogu home
+    find /home -type d -name folder szuka folderu o nazwie folder
+
+    help wyswietla informacje o komendzie
+    help echo - np
+    lub
+    ls --help
+
+    man -to tak jakby wbudowana dokumentacjia komend w linux
+    man ls - np
+
+    whatis - wyswietla szybki opis komnedy
+    whatis ls
+
+    alias - skrot
+    alias ll='ls -la' tworzy tymczasowy skrot dopoki nie wylaczyc terminala
+    zeby zrobic staly skrot trzeba go wpisac do ~/.bashrc
+    a zeby wylaczyc skrot
+    unalias ll
+
+    exit konczy sesie shella
+    loguot tez
