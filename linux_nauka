@@ -141,3 +141,66 @@ coamnd line
 
     exit konczy sesie shella
     loguot tez
+    
+    DZIALANIA NA TEKSCIE 
+    
+    stdout standard output 
+    echo hello world > peanuts.txt wysyla text do pliku i usuwa wszystko co bylo w nim 
+    echo hello world >> peanuts.txt wusula text do pliku i dodaje go 
+    
+    stdin standard input 
+    cat < peanuts.txt > banana.txt bierze tekst z pierwszego pliku i kopiuje go do drugiego 
+    inaczej zapisuje dane z pliku do cat a nastepnie cat wysyla je do drugiego pliku 
+    
+    stderr standard error 
+    we can control where the error will go 
+    ls /fake/directory 2> preanuts.txt  wysyla blad do pliku peanuts
+    ls /fake/directory /etc/passwd > peanuts.txt 2>&1 zapisuje do pliku blad i wartosc drugiego pliku
+    ls /fake/directory /etc/passwd &> peanuts.txt dziala tak samo 
+    ls /fake/directory 2> /dev/null wysyla blad do folderu ktory go automatycznie usuwa 
+    
+    pipe operetor laczy komendy 
+    ls -la /etc | less bierze output z komendy ls i wysyla go do drugiej komendy less dzieki | 
+    
+    tee komenda ktora jednoczesnie zapisuje wynik w pliku jak i terminalu
+    ls | tee peanuts.txt 
+    ls -la /etc | tee etc_listing.txt | grep "conf" idzie po kolei najpier zapisuje wynik dalego ls do pliku a nastepnie wyswietla tylko pliki z conf
+    
+    env enviroment srodowisko
+    $ tym znakiem sa oznaczone specjalne zmienne w srodowisku
+    np
+    echo $HOME wyswetla katalog domu
+    echo $USER wyswietla nazwe uzytkownika 
+    env wyswietla wszystkie zmienne srodowiska 
+    export TEST=test tworzy nowa zmienna srodowiska na dana sesje
+    echo $TEST da wynik test 
+    zeby stworzyc taka zmienna na stale nalezy wejsc fo .bashrc za pomoca edytora textu np nano 
+    nano ~/.bashrc
+    dodac export linie na koncu pliku
+    export TEST=test
+    zapisac i wyjsc
+    
+    cut wyodrebnia tekst z pliku
+    echo 'jesc' > test.txt po tej komendzie w pliku bedzie tylko jesc
+    cut -c 5 sample.txt wyswietla 5 litere kazdego wyrazu
+    cut -f 2 sample.txt wyswietla drugi tekst oddzielony tabulatorem
+    cut -f 1 -d ";" sample.txt zmienia oddzielanie tabulatorem na ; 
+    
+    paste 
+    paste -s sample2.txt dzueju tej komendzie zamiast wyswietlac tak to
+    sample2.txt
+    The
+    quick
+    brown
+    fox
+    wyswietla jeden    dwa    trzy 
+    paste -d ' ' -s sample2.txt a jak zrobimy tak to zamiast oddzielac tabem oddziela spacja 
+    
+    head wyswietla dana liczbe lini w pliku
+    head /var/log/syslog wyswietla 10 lini
+    head -n 15 /plik wyswietla 15 
+    
+    tail wyswietla ostatnie linie pliku jak head
+    tail /var/log/syslog
+    tail -n 20 /var/log/syslog
+    tail -f /var/log/syslog ta funkcja jest bardzo wazna do monitoringu i dziala ciagle jak zmieniaja sie pliki odrazu je wyswietla 
