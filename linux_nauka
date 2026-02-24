@@ -280,3 +280,12 @@ coamnd line
     np
     env | grep -i User
     ls /somedir | grep '.txt$' lub szuka tylko plikow z txt
+        
+    regex 
+    ^ poczatek lini
+    $ koniec lini 
+    . kazdy pojedynczy znak 
+    [ae] ktoraz z danych liter
+    [^e] kazdy znak oprocz e
+    [a-c] a b c 
+    
