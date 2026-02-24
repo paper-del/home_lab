@@ -204,3 +204,79 @@ coamnd line
     tail /var/log/syslog
     tail -n 20 /var/log/syslog
     tail -f /var/log/syslog ta funkcja jest bardzo wazna do monitoringu i dziala ciagle jak zmieniaja sie pliki odrazu je wyswietla 
+    
+    expand ta komenda zmienia kazdego taba w 8 spacji
+    expand sample.txt
+    komenda expand zapisuje tylko wynik w terminalu zeby to zmeinic mozemy ozyt outputa
+    expand sample.txt > result.txt
+
+    unexpand zamienia spacje w tabulatory zamienia 8 spacji w taba
+    unexpand result.txt zamienia tylko spacje na poczatku lini
+    unexpand -a result.txt zamienia wszytkie 8 spacji
+
+    join and split
+    join laczy pliki w jeden
+    split dzieli pliki na pare
+    join file1.txt file2.txt
+    1 john doe
+    2 jane doe
+    3 mary sue
+    join laczy pliki za pomoca sortowania jak np 1 john 1 doe to wyjdzie 1 john doe
+    jesli nie jest posortowane musimy sami wybrac poszczegolne pola
+    john 1 \ 2 doe
+    join -1 2 -2 1 file1.txt file2.txt
+    z pierwszego pliku flaga jest 2 a z drugiego pierwsza
+    SPLIT dzieli pliki z limitem 1000 lini
+    mozna to edytowac przy -l  czyli limitem lini i -b limitem wagi
+
+    sort komenda sortujaca
+    sort file1.txt sortuje alfabetycznie
+    sort -r file1.txt sortuje na odwrot
+    sort -n sortuje numerycznie
+
+    tr(translate) ta komenda zmienia lub usuwa znaki
+    echo "hello world" | tr a-z A-Z zamienia male litery w duze
+    $ echo "My address is 123 Main Street" | tr -d '0-9'
+    My address is  Main Street \ usuwa cyfry ale moze tez inne rzeczy
+    $ echo "Hello      World,   how   are   you?" | tr -s ' '
+    Hello World, how are you? \ laczy wiele powtarzajacych sie elementow w jeden
+
+    uniq wyjatkowe wypisuje tylko jedno powtorzenie danego slowa
+    np
+    uniq text.txt
+    zamiast piac
+    ksiazka
+    ksiazka
+    wypisze ksiazka
+    a uniq -c text.txt
+    wypisze tez ilosc powtorzen
+    2 ksiazka
+    a uniq -u text.txt wypisze tylko to co sie nie powtarza
+    a -d tylko to co sie powtrza
+    uniq dziala tylko jak tane slowa sa pod soba dlatego warto laczyc ta komende z sort zeby dziala poprawnie
+    sort text.txt | uniq
+
+    wc and nl
+    wc to komenda ktora liczy liczbe lini slow i liter w pliku
+    wc /etc/passwd 96 265 5925 linie slowa litery
+    mozna tez to precyzowac
+    -l linie
+    - w slowa
+    -c litery
+    nl dodaje do tekstu numeryke lini
+    1 i
+    2 like
+    3 turtles
+    nl plik1.txt
+
+    grep pozwala szukac w tekscie np
+    grep fox sample.txt wyszukuje tylko lini z slowem fox
+    grep -e "-v" wczytuje -v jako text a nie jako komenda
+    grep -i szuka bez znaczenia na wielkosc liter
+    grep -c line ile lini ma dany patern
+    grep -o pokazuje dany moment kiedy pojawil sie dany patern
+    greo -f plik1 plik2 plik jeden jest paternem do pliku 2
+    prawdziwa potega grep wychodzi kiedy laczymy go z innymi komendami
+    np
+    env | grep -i User
+    ls /somedir | grep '.txt$' lub szuka tylko plikow z txt
