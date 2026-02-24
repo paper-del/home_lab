@@ -1,0 +1,62 @@
+every user is assigned a personal home direcotory /home/username
+system identifies users with a user if (UID) 
+
+the superuser (root) this user has unlimited power and access to every comand and file 
+to use these power superuser need to use sudo command
+
+su command (substitute user) open new shell window where you are logged as root so you can do everything but it increase risk to destroy system 
+system know who is allowed to use sudo by configuration file /etc/sudoers 
+to save better open this file with visudo
+
+/etc/passwd in this file is stored mapping between usernames and UIDs
+200~root:x:0:0:root:/root:/bin/bash
+this is the first line in this file lets understand this structure
+1root - username
+2	x - means password but real password is in /etc/shadowfile 
+	* - means means the account is locked and cannot be used for login 
+	a blank field means the user has not have password
+3 a user id the root always have 0
+4 group id - the numerical identifier for the user's primary group
+5 gecos field - ahte additioinal informations abaut the user like number name...
+6 home directory /root
+7 deafult shell 
+
+in this file are non-human users too like daemons who have limited permisions
+to edit this file are recomended useradd usermod userdel commends
+
+
+/etc/shadow in this file are stored sensitive user authentication information 
+you can see what is in this file by using
+sudo cat /etc/shadow
+the file structure
+root:MyEPTEa$6Nonsense:15000:0:99999:7:::
+1 username
+2 encrypted password 
+3 date of last password change
+4 minimum password age
+5 maximum pasword age
+6 password warning period
+7 password inactivity period 
+8 account expiration date
+9 reserved fiels
+
+/etc/group this dile defines the groups on the system and their members
+witch group can have specific permisions to fules and directories
+group informations 
+cat /etc/group
+root:*:0:pete
+1 group name
+3 group password
+3 group id
+4 list od users
+
+user managment tools
+
+adding user 
+sudo useradd bob
+
+removing user 
+sudo userdel bob
+
+changing passwords 
+passwd bob
