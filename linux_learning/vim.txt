@@ -1,0 +1,75 @@
+to start with vim we need to write "vim" in the terminal
+or open file using "vim file.txt"
+
+when you looking for some word or phrase use / comand in normal mode and write it 
+vim will start looking for it forward
+i recomended to swap esc with caps lock its easier to use and who use caps lock? 
+
+in backword use ? 
+
+when you want go  to the next match use n or previous N 
+
+
+Navigation 
+
+to move cursor you dont want use mause or arrows 
+
+use instead 
+h to move to the left
+j to move to the down
+k to move to the up
+l to move to the right
+
+this can be combined with numbers to move faster like
+10h move 10 letters to left 
+
+when you open vim you will be in the normal mode this mode is for moving  and writing comands and going to ther modes
+if you want to go to insert mode use one of this shortcuts 
+
+i - turs insert mode before the current cursor position
+a - the same but on end of the current cursor position
+I - turns insert mode at the beggining of the current line
+A - turns insert mode at the end of the current line
+o - create a new line below the current line and turn on insert mode
+O - the same but create a new line above
+
+you can too combine this comands with number 
+first write 3a in normal mode next write sth and go to normal mode and vim will copy and pase this pattern 3 times
+
+
+vim  editing comands 
+deleting text
+x - deletes the character under the cursor 
+dw - deletes from the cursor to the begining of the word
+daw - deletes word under the cursor
+diw - deletes word under the cursor without touching spaces around
+caw - deletes word under the cursor and turn on insert mode
+d$ - deletes from the coursor to the end of the current file 
+dd - deletes the current line
+3dd - delestes three lines 
+
+changing text 
+cw - changes the text from the cursor to the end of the word 
+c$ changes text from the cursor to the end of the line 
+cc - changes the entire current line
+r{char} - replaces the single character with under the cursor with the specified character 
+R - enters replace mode
+
+copying and pasting
+yw - copies a word
+yy - copies the entire line
+p - pastes the copiedtext after the cursor
+P - same but before cursor
+
+other usefull commands
+J - joins the current line with the next one 
+. - repeats the last change you made 
+u - undo last change
+ctrk-r - redo last change you undo
+
+to save file in vim use 
+:w to save
+:q to quit vim
+:wq to save and quit or ZZ
+:q! to quit without saving
+
