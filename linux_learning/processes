@@ -1,0 +1,33 @@
+processes are the programs currently running on your machine
+each process have unique number called process ID (PID)
+basic ps command
+ps
+this command provides a quick snapshot of the processes associated with your terminal session
+$ ps
+PID        TTY     STAT   TIME          CMD
+41230    pts/4    Ss        00:00:00     bash
+51224    pts/4    R+        00:00:00     ps
+PID - proces ID
+TTY - the controlling terminal for the process
+STAT - the current status of the process
+TIME - the total CPU time the process has used
+CMD - the command that started the process
+
+options of ps
+ps aux
+a displays all processes for al users
+u provides a detailed user-oriented format
+x inlucdes preocesses not attached to any terminal
+
+ps -ef
+-e selects every process on the system
+-f displays a full format listing which includes details like UID PPID
+top is like ps but in real time
+
+
+controlling terminal
+true terminal device is a native consoke that allows you to tupe commands and see output direclty ctra alt f1
+to return to graphical interface use ctrl alt f7
+a pseude terminal is terminal like cmd kitty and others
+normaly processes are working in a terminal we can see this in TTY column in ps
+but there are processes that dont work in terminal like daemons and are working in the background
