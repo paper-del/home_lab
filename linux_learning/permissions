@@ -1,0 +1,79 @@
+linux file permissions are in first letters while we use ls -l example
+drwxr-xr-x
+d - type of a file
+rwx r-x r-x
+r-read permissions
+w-write pemissions
+x - execute permissions
+- - no permissions
+
+rwx is user(owner) he can read write and execute
+r-x is group people in group can read and execute
+r-x is others. Others can read and execute
+
+to change permissions of file we use chmod command
+in symbolic mode
+u - user/owner
+g - group
+o - others
+a - all
++ add permission
+- remove permission
+
+to add execute permission to user on a file use
+chmod u+x file
+to remove write permission to group
+chmod g-w file
+you can also modifie multiple permissions an once
+chmod ug+w file
+
+using numerical mode
+4 -read
+2 -write
+1 -execute
+
+to set permission set you need to add this numbers like all permissions will be 7
+chmod 755 file
+7 user 4 + 2 + 1 all
+5 group and others 4 + 0 + 1
+
+owner permissions
+in linux every fiel and directory is assigned an owner and group
+changing user ownership use chown (change owner)
+sudo chown user2 file
+changing group ownership chgrp (change group)
+sudo chgrp group2 file
+
+changing both use chown
+sudo chown user2:group2 file
+
+when you create a file this file automaticly gets a permissions to change this permissions use umask but umask takes permissions istead of adding
+deafult umask is 022
+umask 021
+takes from user nothing
+from group write permissions
+anf others execute
+
+setuid
+-rwsr-xr-x
+the s is suid permissions which give user permission set it allows the user who launched the program to get the file owners permission
+modyfying suid
+symbolic
+sudo chmod u+s file
+numerical
+sudo chmod 4755 file
+the s symbol in numerical is 4
+
+setgid is like setuid but for group
+sudo chmod g+s file
+sudo chmod 2555 file
+2 is the sgid
+
+the sticki bit
+is a permission settings in directory to not delete and rename files in only root user can do it
+t represents this permission
+drwxrwxrwt
+chmod +t directory
+this add this in symbolic mode
+chmof 1755 directory
+1 are the same as t
