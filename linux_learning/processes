@@ -119,3 +119,60 @@ each process is allocated a small amount of CPU time called a "time slice" after
 when you run multiple applicatons on your computer it seems like they are all running simultaneously. in reality the CPU is rapidly switching between them giving each process a small amount of processing time
 
 what is niceness in linux
+while processes cannot directly control their CPU time, you can influence the kernel's scheduling decisions. this is done adjusting the linux nicensess value of a process the term "niceness" refers to how "nice" a process is to other processes on the sustem
+
+the nicensess of a process is represented bu a numver ranging from -20 higest priority to 19 lowest priority
+high necesess value 19 low priority low cpu time need
+low necesess value -20 high piority high cpu time need
+
+adjusting process priotity
+you can view the level of niceness using top command in the NI column
+
+to control  niceness linux value you can use the nice and renice commands
+use the nice command to start a new process with a specific level for example the following command starts apt upgrade with niceness of 5
+nice -n 5 apt upgrade
+to change a priority of an already running process use the renice command the following command changes the niceness of a process with PID 3245 to 10
+renice 10 -p 3245
+
+
+process states is pa aux you can see STAT column  this column represents a linux process state
+a process state in linux provides a snapshot of what a process is currently doing. Is it actively using the CPU waiting for input or has it terminated?
+
+Decoding Common Proces State Codes
+R running - this sistem is either actively executing on a CPU or is in the run queue
+S interruptible sleep - the process is waiting for an event to completes
+D uninterruptible sleep - this process is sleeping but its in a tate where it cannot be interrupted by a signal
+Z zombie - this process has finished execution but it still has an entry in hte process table
+T stopped - a process enters this state when it has been suspended by a job control signal like ctrl z or beacuse it is being traced by a debugger it can be ressumed with the sigcont signal
+
+/proc filesystem
+processes are stored in a /proc directory
+the /proc in not a real filesystem its created in memory by the kernel it provides a window into the kernels internal data structures and the state of the system
+to see its contents  use ls /proc
+
+accessing specific process information
+if you identify a PID using a command like ps you can find its corresponding directory in /proc to get more detailed information fore example to inspect a process with PID 12345
+cat /proc/12345/status
+this command will display detailed information about the process including state memoty usage and user ID
+
+job control
+this powerful frature allows you to run and manage multiple background processes within a single shell session significantly impoving your workflow
+running a command in the background
+to start proces in he background use & in command
+sleep 1000 &
+listing background jobs command
+jobs
+[1]    Running     sleep 1000 &
+[2]-   Running     sleep 1001 &
+[3]+   Running     sleep 1002 &
+the - marks the second most recent one
+the + markds the last
+
+managing active processes
+while you want terminal back but the process is in the work stop it with  ctrk z
+and write bg
+to send it to the background
+to bring a job to the foreground use fg command
+fg returns last backgrounded jobs
+fg %1 returns first proces
+kill %1 terminate first process
