@@ -31,3 +31,91 @@ to return to graphical interface use ctrl alt f7
 a pseude terminal is terminal like cmd kitty and others
 normaly processes are working in a terminal we can see this in TTY column in ps
 but there are processes that dont work in terminal like daemons and are working in the background
+
+process is a program in execution
+the kernels rile in process managment
+the linux kernel is responsible for all process managment
+the kernel maontaons detailed information for each process including:
+the status process
+the resu=ources the process is using and receives
+the proces owner
+signal handling
+and everything else
+
+process creation
+the primary mechanism for process creation in linux involves an existing preocess cloning itself using the fork system call
+the original process have own id parent process id (PPID)
+and the cloned have process id (PID)
+after forking the child process can either continuerunning the same program as its parent or more commonly use the execve system cal to load
+and run new program
+to observe this parent child relationships
+use ps l comand
+now look on pid of bash its the same as ppid of ps l
+the init process is a original ancestor
+when the system boots
+the kernel creates init as the very first user-space assigning it a PID 1
+its the ultimate parent of all processes and runs with root privileges to manage the system
+
+process termination
+first process termination is a process send _exit system call
+this action signals the kernel that the process is finished and its resources can be recalimed
+however calling _exit doesnt immediately erase the process the parent process must acknowledge its chidls termination by using
+the wait system call
+the next process termination is linux kill child process
+
+orphan processes
+when parent proces terminates first the child becomes orphan and init becomes his parrent and call wait to collect the termination status allowing him to terminate cleanly
+
+zombie processes
+when a child process terminates but its parent has not yet called wait , the child becomes zombie process
+the kernel releases most of the zombies resources but it keeps an entry in the process table it contains process id and the termination status waiting for the parent to collect it
+zombie proceses dont consume CPU time . you cannot kill them with signals beacause they are not running
+if the parent process never calls wait zombies can accumulate
+and when they accumulate it can fill the process table, preventing new preocesses from being created
+when the parent procces terminates init will asopt and reap the zombies
+
+signals serve as a primary inter preocess communication (IPC) they have many uses
+User ineraction : a user can type special terminal characters like ctrl c (SIGINT) or ctrl z (SIGTSTP)
+to interrupt or suspend foreground processes
+kernale notifications: the kernel can send signals to a process to notify it of hardware or software issues, such as an illegal memoty access (SIGSEGV)
+process Management: system administrators and other processes use signals to manage the lifecycle of other processes such as requesting termination or a configuration reload
+the signal lfecycle
+when an event generates a signal it is first delivered to a target process the signal remains in a "pending" state until the kernel runs the process when the process is scheduled the signal is delivered however processes have signal masks which can be configured to block the delivery of specific signals
+when a signal is delivered  the process can take one of severel actions
+ignore the signal : the process simply discards the signal and continues execution
+catch the signal: the process executes a custom function called a signal handler to respond to the event
+perform the deafult action: if not caught or ignored the deafult action is taken for many signals this means terminating the process
+block the signal : if the signal is in the process's signal mask it remains pending until it is unblocked
+
+common linux process signals
+each signal is defined by an intiger but they are almost always referred to by their symbolic names (the os sig code) which start with SIG while the numbers can vary slightly between architectures the names are consistent. Here are some of the most common linux processes signals:
+SIGHUP(1) Hangup often used to tell a daemon to reload its configuration
+SIGINT(2) interrupt sent by ctrl-c its a request to terminate the process
+SIGKILL(9) kill this is an immediate forceful termination. the process canot catch, ignore, or block this signal
+SIGSEV(11) termination. this is the standard, oikute way to ask a process to terminate. it is the default signal sent by yhe kill command
+a process can catch this signal to perform cleanup before exiting. this is often referred to as signal 15 linux
+SIGSTOP(19) stop pauses the process. like SIGKILL, it canot be cought or ignored
+
+kill command
+in linux you can manage the processes by sending them signals. the primary command for this is kill, which despite its name, can send various signals, not just ones that terminate a process
+deafult termination with kill sigterm
+when you use the kill command with only a Process ID (PID) it sends a term signal by deafult
+kill 12445
+the sigterm signal(SIGTERM or signal 15) gives the process a chance to save its progress and release resources properly
+kill -15 12445 works the same
+forcing termination with SIGKILL
+sometimes a procsss becomes unresponsive abd won't react to a SIGTERM signal in these cases you can force it to stop using the KILL signal
+kill -9 12445
+thiss signal terminates process immediately
+
+checking Process Existence with kill -0
+kill -0 12445
+this command checks if this signal exist and if you have permission to signal it
+
+niceness
+how the cpu manages processes
+each process is allocated a small amount of CPU time called a "time slice" after its time slice a process is paused and the CPU moves to the next one By deaful the linux kernel schedules processes in a round-robin fashion ensuring every processes gets a fair share of CPU thime until it completes the kernel's scheduler is higly efficient at managing these rapid switches
+
+when you run multiple applicatons on your computer it seems like they are all running simultaneously. in reality the CPU is rapidly switching between them giving each process a small amount of processing time
+
+what is niceness in linux
