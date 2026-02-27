@@ -1,0 +1,97 @@
+software distribution
+in linux are a lot of softwares : web browsers , text editors , medi players
+they are packages and they are managed by packages manager
+package is an archive of files including the spplications executables
+the software supply chain
+upstream providers - these are the developer who write the software they compile the source code create installation instructions and release new versions and updates
+package maintainers - when a new version is ready upstream providers send it to package mainainters these maintainers review manage and distribute the software to end-user in the form packages tailored for specific linux distributions
+
+common package formats
+there are two predominant packages formats
+debian .deb
+red hat package manager .rpm
+
+
+package repositories
+a package repository is a central storage location for softaware these repositories hosted on servers scross the internet contain curated collections of linux packages
+
+how repositories work
+you configure your package manager to use aplication official repository . once configured your system can access all the packafes within that repository
+
+configuring reopstiory sources
+linux distribution comes with a set of pre configured repositories for all the base packages on your sustem on debian-based systems
+primary configuration for these sources is managed through the apt sources list
+this list is a single file /etc/apt/sources.list
+
+also common is the next repository configuration /etc/apt/sources.list.d/ directory to the third part repositories
+
+tar and gzip
+archiving is combining multiple diles and directories into a single file
+compresion is the process of reducing the size of file to save disk space and speed up transfers
+tar utility is used for archiving
+gzip is used to compression
+
+compressing single files
+gzip file
+decompression
+gunzip file.gz
+
+creating archives with tar (tape archive) .tar
+to create a new atchive
+tar cvf archive.tar file1 file2 file3
+c - create new archive
+v - verbose mofe which lists the files as they are processed
+f - fiel which specifies that the next argument is the name of the archive file
+
+tar and gzip combined
+tar czvf archive.tar.gz file1 file2 directory1
+the z is the option whitch tells tar to use gzip for compresion
+
+extracting
+to extract simplr .tar archive
+tar xvf archive.tar
+to uncompress and extract a .tar.gz archive in one command simpy add the z option again
+tar czvf archive.tar.gz
+x - extract files from archive
+z - decompress the archive using g**z**ip
+v - verbose mode listing files as they are extracted
+f - file specifying the archive file to extract
+
+package dependencies
+in the world od linux software packages rarely stand alone they often rely on other components know as dependencies
+in linux these crucial dependencies are typiccaly other packages or more commonly shared libraries
+
+dpkg
+to istall package in debian
+dpkg -i package.deb
+to remove
+dpkg -r package.deb
+
+list installed packaged
+dpkg -l
+
+and apt
+these are paclage tools
+installing
+apt install package
+remove
+apt remove package
+updating
+apt update : apt upgrade
+to get information about package us
+apt show package
+
+compile from source code
+first install essntial build functions
+sudo apt install build-essential
+after instlling tools extract the contents
+tar -xzvf package.tar.gz
+
+the build proces standard
+./configure
+next
+make
+next sudo make install
+
+a better way
+sudo checkinstall
