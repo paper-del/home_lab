@@ -1,0 +1,83 @@
+every device in linux are represented by files in /dev directory
+ls /dev reveal all devices files currently on your system
+/dev/null every output sended to this repository kernel automaticly discard it
+linux sustem use dunamic approach system
+linux dynamicly create and remove device files as hardware is connected and disconnected
+
+device types
+discarding ls -l /dev
+$ ls -l /dev
+brw-rw----   1 root disk      8,   0 Dec 20 20:13 sda
+permissions
+owner
+group
+major device number
+minor device number
+timestamp
+device name
+
+identyfying linux device types
+the first letter in the permissions string of the ls -l output indicates the file type. for a device file
+c character
+these devices transfer fata one character at a time. many pseudo-devices, which are not phusically connected hardware but provide essential OS functions, are represented as character devices a classic example is /dev/null
+
+b block
+These devices transfer data in large, fixed-size blocks. You'll commonly find that storage hardware, such as hard drives (/dev/sda), SSDs, and other mass storage components, are represented as block devices, as they are optimized for block-based data access.
+
+p pipe
+Named pipes, or FIFOs (First-In, First-Out), allow for inter-process communication. They act like character devices but channel their output to another process instead of a physical device.
+
+s socket
+Socket devices also facilitate communication between processes. Unlike pipes, they are more versatile and can support communication between multiple processes, even across a network.
+
+device numbers
+Each linux device is uniquely identified by two numbers: the major device number and the minor device number. You can see these in the ls output, separated by a comma. For a device with numbers 8, 0:
+The major number (8) identifies the driver responsible for the device. In this case, 8 is commonly used for SCSI disk drives. The minor number (0) tells the driver which specific instance of the device it is. Here, 0 represents the first drive (a).
+
+device names
+scsi and modern storage devices
+sd element same follows a clear patternthe sd predix insicates a mass storage device
+the next letter represents the drice itself assigned in the order of detection (a for the first, b for the seccond and so on )
+a number at the end indicates the pertition on that drive
+/dev/sda the first storage drive
+/dev/sdb tghe seccond storage drive
+/dev/sda 3 the third partiton on the first storage drive
+
+pseudo devices
+/dev/zero Accepts and discards all input. When read, it produces a continuous stream of NULL (zero value) bytes.
+/dev/null Accepts and discards all input written to it, and produces no output when read.
+/dev/random Produces a stream of random numbers generated from environmental noise.
+
+sysfs
+the filesystem was introduced to provife a better way to manage devices
+this is the virtual filesystem mounted at /sys
+you use this to view information and manage the decive's sttributes
+example
+pete@icebox:~$ ls /sys/block/sda
+alignment_offset  discard_alignment  holders   removable  sda6       trace
+
+you can create device noise using
+mknod /dev/sdb1 b 8 3
+This command will make a device node /dev/sdb1 and it will make it a block device (b) with a major number of 8 and a minor number of 3.
+to remove device use rm
+
+udev system dynamically create and removes decive files
+to see udev database use
+udevadm
+udevadm info --query=all --name=/dev/sda
+
+lsusb listing usb debices
+for more structured view lsusb -t
+
+lspci listing pci devices (devices connected to motherboard like graphic card)
+
+lsscsi listing scsi and sata devices
+
+dd command
+dd if=/home/pete/backup.img of=/dev/sdb bs=1024
+this copies data to dev/sdb in blocks of 1024 bytes
+essential dd options
+if=fo;e input file
+of= file output file
+bs=byte block size
+count=number copies only this specified number of blocks
